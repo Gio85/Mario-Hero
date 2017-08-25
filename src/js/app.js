@@ -1,29 +1,40 @@
 $(() => {
-  let timerId = null;
 
   const $balls = $('.circle');
-  let marginTop = 0;
   const $button = $('button');
   let score = 0;
   const $score = $('.score');
+  const timers = [];
 
-  function runningTimer(){
-    timerId = setInterval(() => {
+  function dropBall($ball, speed){
+    let marginTop = 0;
+    const timerId = setInterval(() => {
       if (marginTop === 550){
         clearInterval(timerId);
       } else {
-        $balls.css('margin-top', marginTop + 1);
+        $ball.css('margin-top', marginTop + 1);
         marginTop++;
-        console.log(marginTop);
       }
-    },10);
+    },speed);
+
+    timers.push(timerId);
   }
-  $button.on('click',runningTimer);
+
+  function repeatingDroppinBall(){
+    let game = 0;
+    while(game<10){
+      timers.forEach(timerId => clearInterval(timerId));
+      $balls.toArray().forEach(ball => dropBall($(ball), Math.floor(Math.random() * 8)));
+    }
+    game++;
+  }
+
+  $button.on('click', repeatingDroppinBall);
+
   $balls.on('click', (e)=>{
     $(e.target).css('visibility', 'hidden');
     score++;
     $score.text(score);
-
   });
 
 }); //leave this
