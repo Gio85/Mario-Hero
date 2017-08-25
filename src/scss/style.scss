@@ -1,3 +1,28 @@
-body {
-  background: aqua;
+body{
+  background-image: url('../images/batman-background.jpg');
+}
+
+
+.grid{
+  width: 330px;
+  height: 600px;
+  margin: 0 auto;
+}
+
+
+.circle{
+  background-color: red;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skinny{
+width: 80px;
+float: left;
+border: 1px solid black;
+height: 600px;
 }
