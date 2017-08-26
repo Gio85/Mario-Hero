@@ -4,8 +4,8 @@ $(() => {
   const $button = $('button');
   const $score = $('.score');
   const timers = [];
-  const $themeSong = $('audio');
-  $themeSong.play();
+  const themeSong = $('.theme').attr('src', 'audio/theme.mp3');
+
   // const $mario = $('.mario');
   // const $skinny = $('.skinny');
   $(document).keydown(function(event) {
@@ -65,5 +65,6 @@ $(() => {
   $button.on('click', () =>{
     startButton();
     winCheck();
+    themeSong.play();
   });
 }); //leave this
