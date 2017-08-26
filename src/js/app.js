@@ -10,22 +10,32 @@ $(() => {
     const timerId = setInterval(() => {
       if (marginTop === 550){
         clearInterval(timerId);
-        $ball.css('visibility','hidden');
+        // $ball.css('visibility','hidden');
       } else {
         $ball.css('margin-top', marginTop + 1);
         marginTop++;
       }
     },speed);
-
     timers.push(timerId);
+  }
+  function startButton(){
+    let time = 0;
+    const timerIdStartButton = setInterval(() => {
+      if (time === 10){
+        clearInterval(timerIdStartButton);
+      } else {
+        repeatingDroppinBall();
+        time++;
+      }
+    }, 2000);
   }
 
   function repeatingDroppinBall(){
     timers.forEach(timerId => clearInterval(timerId));
-    $balls.toArray().forEach(ball => dropBall($(ball), Math.floor(Math.random() * 10 )));
+    $balls.toArray().forEach(ball => dropBall($(ball), Math.floor(Math.random() * 10)));
   }
 
-  $button.on('click', repeatingDroppinBall);
+  $button.on('click',startButton);
 
   $balls.on('click', ()=>{
     score++;
