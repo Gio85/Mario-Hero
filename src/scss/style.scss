@@ -50,6 +50,12 @@ body{
 .final{
   visibility: hidden;
 }
+.lose{
+  visibility: hidden;
+}
+h2{
+  visibility: hidden;
+}
 .skinny{
   width: 25%;
   float: left;
@@ -57,9 +63,14 @@ body{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   &.mario {
-    background-image: url('../images/mario-running-right.gif');
     background-position: bottom center;
     background-repeat: no-repeat;
+    &.left {
+      background-image: url('../images/mario-running-left.gif');
+    }
+    &.right {
+      background-image: url('../images/mario-running-right.gif');
+    }
   }
 }
 .instructions{
