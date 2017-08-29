@@ -45,37 +45,37 @@ $(() => {
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
         // coin has hit mario
         score++;
-        if(score===1){
+        if(score===10){
           level++;
           $level.text(level);
           num-=7;
-          
-        } else if(score===2){
+
+        } else if(score===22){
           level++;
           $level.text(level);
           num-=1;
           console.log(score, num, level);
-        } else if(score===3){
+        } else if(score===30){
           level++;
           $level.text(level);
           numMargin++;
-        } else if(score===5){
+        } else if(score===50){
           level++;
           $level.text(level);
-        }else if(score===7){
+        }else if(score===70){
           level++;
           $level.text(level);
           numMargin++;
           num = 10;
-        }else if(score===8){
+        }else if(score===80){
           level++;
           $level.text(level);
           numMargin++;
           num-=5;
-        }else if(score===9){
+        }else if(score===90){
           level++;
           $level.text(level);
-        } else if(score===10){
+        } else if(score===100){
           $grid.hide();
           $('.final').css('visibility', 'visible');
           $level.hide();
