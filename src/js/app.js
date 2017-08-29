@@ -80,6 +80,7 @@ $(() => {
           $('.final').css('visibility', 'visible');
           $level.hide();
           $score.hide();
+          $('h2').hide();
 
         }
         $score.text(score);
