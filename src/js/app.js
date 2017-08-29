@@ -7,6 +7,7 @@ $(() => {
   const $skinny = $('.skinny');
   const $grid = $('.grid');
   const $intro = $('.instructions');
+  const $level = $('.level');
 
   $(document).keydown(function(event) {
     switch (event.keyCode) {
@@ -24,30 +25,69 @@ $(() => {
   }
   function changingClassToLeft(){
     const $mario = $('.mario');
-
     if($mario.index('.skinny') === 0) return false;
     $mario.prev('.skinny').addClass('mario');
     // $mario.prev('.skinny').css('background-image', 'url(../images/mario-running-left.gif)');
     $mario.removeClass('mario');
   }
-
+  let num = 10;
+  let level = 1;
+  let numMargin = 1;
   function dropBall($coin, speed){
     const marginTop = parseFloat($coin.css('margin-top'));
     const timerId = setTimeout(() => {
-
       if (marginTop >= $skinny.height() - $coin.height()){
         // coin has hit floor
         $coin.css('margin-top', 0);
-        speed = Math.ceil(Math.random() * 10) + 10;
-      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {
+        speed = Math.ceil(Math.random() * 10) + num;//decrease the number by 1 for next level
+        score--;
+        $score.text(score);
+      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
         // coin has hit mario
-        console.log('WIN!');
-        $coin.css('margin-top', 0);
-        speed = Math.ceil(Math.random() * 10) + 10;
-      } else {
-        $coin.css('margin-top', marginTop + 1);//add more to increase the speed
-      }
+        score++;
+        if(score===1){
+          level++;
+          $level.text(level);
+          num-=7;
+          
+        } else if(score===2){
+          level++;
+          $level.text(level);
+          num-=1;
+          console.log(score, num, level);
+        } else if(score===3){
+          level++;
+          $level.text(level);
+          numMargin++;
+        } else if(score===5){
+          level++;
+          $level.text(level);
+        }else if(score===7){
+          level++;
+          $level.text(level);
+          numMargin++;
+          num = 10;
+        }else if(score===8){
+          level++;
+          $level.text(level);
+          numMargin++;
+          num-=5;
+        }else if(score===9){
+          level++;
+          $level.text(level);
+        } else if(score===10){
+          $grid.hide();
+          $('.final').css('visibility', 'visible');
+          $level.hide();
+          $score.hide();
 
+        }
+        $score.text(score);
+        $coin.css('margin-top', 0);
+        speed = Math.ceil(Math.random() * 10) + num;//decrease the number by 1 for next level
+      } else {
+        $coin.css('margin-top', marginTop + numMargin);//add more to increase the speed
+      }
       dropBall($coin, speed);
     },speed);
     timers.push(timerId);
