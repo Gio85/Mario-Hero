@@ -1,7 +1,6 @@
 $(() => {
-  let num = 10;
+  let num = 15;
   let level = 1;
-  let numMargin = 1;
   let score = 0;
   const $coin = $('.coins');
   const $button = $('button');
@@ -15,67 +14,28 @@ $(() => {
   function changingClass(index, direction){
     const $mario = $('.mario');
     if($mario.index('.skinny') === index) return false;
-
     const $next = direction === 'left' ? $mario.prev() : $mario.next();
     $next.addClass('mario ' + direction);
     $mario.removeClass('mario right left');
   }
 
-
   function changingLevel(){
     level++;
     $level.text(level);
   }
+
   function hidingClasses(){
     $grid.hide();
     $level.hide();
     $score.hide();
     $('h2').hide();
   }
+
   function displayingScore(){
     score++;
     $score.text(score);
   }
 
-  function checkingScore(){
-    console.log('inside checkingScore', score);
-    switch(score){
-      case 10:
-        changingLevel();
-        num-=1;
-        break;
-      case 20:
-        changingLevel();
-        num-=2;
-        break;
-      case 30:
-        changingLevel();
-        num-=3;
-        break;
-      case 50:
-        changingLevel();
-        num-=4;
-        break;
-      case 70:
-        changingLevel();
-        num-=5;
-        break;
-      case 80:
-        changingLevel();
-        // numMargin++;
-        num-=6;
-        break;
-      case 90:
-        changingLevel();
-        num-=9;
-        break;
-      case 100:
-        console.log('inside case 10', score);
-        $('.final').css('visibility', 'visible');
-        hidingClasses();
-        break;
-    }
-  }
   function loseCondition(){
     if(score<0){
       $('.lose').css('visibility', 'visible');
@@ -85,6 +45,7 @@ $(() => {
     return false;
   }
 
+  //dropping coins with setTimeout function
   function dropCoins($coin, speed){
     const marginTop = parseFloat($coin.css('margin-top'));
     const timerId = setTimeout(() => {
@@ -107,15 +68,53 @@ $(() => {
     timers.push(timerId);
   }
 
+  function checkingScore(){
+    if(score===100){
+      $('.final').css('visibility', 'visible');
+      hidingClasses();
+    } else {
+      switch(score){
+        case 10:
+          changingLevel();
+          num-=1;
+          break;
+        case 20:
+          changingLevel();
+          num-=2;
+          break;
+        case 30:
+          changingLevel();
+          num-=3;
+          break;
+        case 50:
+          changingLevel();
+          num-=4;
+          break;
+        case 70:
+          changingLevel();
+          num-=5;
+          break;
+        case 80:
+          changingLevel();
+          num-=6;
+          break;
+        case 90:
+          changingLevel();
+          num-=9;
+          break;
+      }
+    }
+  }
+
   function generateSpeed(num) {
     return Math.ceil(Math.random() * 3) + num;
   }
 
   function startButton(){
-    $coin.toArray().forEach((ball, index) => {
+    $coin.toArray().forEach((ball) => {
       setTimeout(() => {
         dropCoins($(ball), generateSpeed(num));
-      }, 1000 * index);
+      }, generateSpeed(10));
     });
   }
   $(document).keydown(function(event) {
