@@ -34,6 +34,7 @@ body{
   height: 84.5%;
   margin: 0 auto;
   position: relative;
+  visibility: hidden;
 }
 
 
@@ -54,20 +55,22 @@ body{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   &.mario {
-    background-image: url('../images/mario-running.gif');
+    background-image: url('../images/mario-running-right.gif');
     background-position: bottom center;
     background-repeat: no-repeat;
   }
 }
+.instructions{
+  margin: 100px auto;
+  width: 500px;
+}
 
-// .mario{
-//   position: absolute;
-//   background-image: url('../images/mario-running.gif');
-//   width: 25%;
-//   height: 15%;
-//   bottom: 0;
-//   left: 0;
-//   background-size: contain;
-//   background-position: center;
-//   background-repeat: no-repeat;
-// }
+button{
+  width: 80px;
+  height: 50px;
+  margin-top: 0;
+  border-radius: 25%;
+  background-color: #c84c0c;
+  font-weight: bold;
+  font-size: 18px;
+}

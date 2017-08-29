@@ -4,53 +4,56 @@ $(() => {
   const $button = $('button');
   const $score = $('.score');
   const timers = [];
-  const themeSong = $('.theme').attr('src', 'audio/theme.mp3');
+  const $skinny = $('.skinny');
+  const $grid = $('.grid');
+  const $intro = $('.instructions');
 
-  // const $mario = $('.mario');
-  // const $skinny = $('.skinny');
   $(document).keydown(function(event) {
     switch (event.keyCode) {
       case 37: return changingClassToLeft();
       case 39: return changingClassToRight();
     }
   });
-  function winCheck(){
-    const marginTop = parseFloat($coin.css('margin-top'));
-    // const $mario = $('.mario');
-    if(marginTop===400){
-      score++;
-      $score.text(score);
-    } else{
-      $coin.css('margin-top', marginTop + 1);
-    }
-    console.log(marginTop);
-  }
+
   function changingClassToRight(){
     const $mario = $('.mario');
     if($mario.index('.skinny') === 3) return false;
     $mario.next('.skinny').addClass('mario');
+    // $mario.next('.skinny').css('background-image', 'url(../images/mario-running-right.gif)');
     $mario.removeClass('mario');
   }
   function changingClassToLeft(){
     const $mario = $('.mario');
+
     if($mario.index('.skinny') === 0) return false;
     $mario.prev('.skinny').addClass('mario');
+    // $mario.prev('.skinny').css('background-image', 'url(../images/mario-running-left.gif)');
     $mario.removeClass('mario');
   }
 
   function dropBall($coin, speed){
     const marginTop = parseFloat($coin.css('margin-top'));
     const timerId = setTimeout(() => {
-      if (marginTop >= 500){
+
+      if (marginTop >= $skinny.height() - $coin.height()){
+        // coin has hit floor
+        $coin.css('margin-top', 0);
+        speed = Math.ceil(Math.random() * 10) + 10;
+      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {
+        // coin has hit mario
+        console.log('WIN!');
         $coin.css('margin-top', 0);
         speed = Math.ceil(Math.random() * 10) + 10;
       } else {
-        $coin.css('margin-top', marginTop + 1);
+        $coin.css('margin-top', marginTop + 1);//add more to increase the speed
       }
+
       dropBall($coin, speed);
     },speed);
     timers.push(timerId);
   }
+
+
 
   function startButton(){
     $coin.toArray().forEach((ball, index) => {
@@ -64,7 +67,7 @@ $(() => {
 
   $button.on('click', () =>{
     startButton();
-    winCheck();
-    themeSong.play();
+    $intro.hide();
+    $grid.css('visibility', 'visible');
   });
 }); //leave this
