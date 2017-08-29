@@ -2,8 +2,8 @@ $(() => {
   let num = 15;
   let level = 1;
   let score = 0;
-  const $coinsSound = $('.coinsSound');
-  const $themeSong = $('.themeSong');
+  // const $coinsSound = $('.coinsSound');
+  // const $themeSong = $('.themeSong');
   const $coin = $('.coins');
   const $button = $('button');
   const $score = $('.score');
@@ -44,7 +44,7 @@ $(() => {
       hidingClasses();
       return true;
     }
-    return false;
+    // return false;
   }
 
   //dropping coins with setTimeout function
@@ -58,7 +58,7 @@ $(() => {
         score--;
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
         // coin has hit mario
-        $coinsSound.play();
+        // $coinsSound.play();
         displayingScore();
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease the number by 1 for next level
@@ -127,7 +127,7 @@ $(() => {
     }
   });
   $button.on('click', () =>{
-    $themeSong.play();
+    // $themeSong.play();
     startButton();
     $intro.hide();
     $grid.css('visibility', 'visible');

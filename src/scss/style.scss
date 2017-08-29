@@ -8,6 +8,7 @@ body{
 }
 
 .wrapper {
+
   background-image: url('../images/mario-wallpaper.png');
   background-size: cover;
   background-position: center bottom;
@@ -26,6 +27,8 @@ body{
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -35,6 +38,9 @@ body{
   margin: 0 auto;
   position: relative;
   visibility: hidden;
+}
+.displayingScore{
+  width: 30%;
 }
 
 
@@ -63,6 +69,7 @@ h2{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   &.mario {
+    height: 100%;
     background-position: bottom center;
     background-repeat: no-repeat;
     &.left {
