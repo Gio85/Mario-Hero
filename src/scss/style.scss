@@ -52,6 +52,14 @@ body{
   border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
+
+  &.mushroom {
+    background-image: url(../images/mushroom.gif);
+  }
+
+  &.star {
+    background-image: url(../images/mario-star.gif);
+  }
 }
 .final{
   visibility: hidden;

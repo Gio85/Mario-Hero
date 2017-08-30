@@ -9,11 +9,11 @@ $(() => {
   let level6 = false;
   let level7 = false;
   let finalLevel = false;
-  let coins = false;
-  let stars = false;
-  let mushroom = false;
-  // const $coinsSound = $('.coinsSound');
-  // const $themeSong = $('.themeSong');
+  const winTheme = document.getElementById('winTheme');
+  const gameOver = document.getElementById('gameOver');
+  const themeSong = document.getElementById('themeSong');
+  const coinsSound = document.getElementById('coinsSound');
+
   const $coin = $('.coins');
   const $button = $('button');
   const $score = $('.score');
@@ -43,30 +43,14 @@ $(() => {
     $('h2').hide();
   }
 
-  function displayingScore(){
-    score++;
-    $score.text(score);
-  }
-
   function loseCondition(){
     if(score<0){
       $('.lose').css('visibility', 'visible');
       hidingClasses();
+      themeSong.pause();
+      themeSong.currentTime = 0;
+      gameOver.play();
       return true;
-    }
-  }
-  function creatingMashroomAndStars(){
-    const randomNum = parseFloat(Math.random()).toFixed(2);
-    console.log('randomNum', randomNum);
-    if (randomNum >= 0.5 && randomNum <= 0.7) {
-      mushroom = true;
-      return 'url(../images/mushroom.gif)'; //put the mashroom instead of the coin
-    } else if(randomNum > 0.7 && randomNum <= 0.9) {
-      stars = true;
-      return 'url(../images/mario-star.gif)';
-    } else {
-      coins = true;
-      return 'url(../images/coin.png)';
     }
   }
   // function checkingHealth(){
@@ -74,27 +58,42 @@ $(() => {
   // }
   //dropping coins with setTimeout function
   function dropCoins($coin, speed){
+
     const marginTop = parseFloat($coin.css('margin-top'));
+    if(marginTop === 0) {
+      const randomNum = Math.random();
+      if (randomNum >= 0.5 && randomNum <= 0.7) {
+        $coin.removeClass('mushroom star').addClass('mushroom');
+      } else if(randomNum > 0.7 && randomNum < 0.9) {
+        $coin.removeClass('mushroom star').addClass('star');
+      } else {
+        $coin.removeClass('mushroom star');
+      }
+    }
     const timerId = setTimeout(() => {
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
-        $coin.css('background-image', creatingMashroomAndStars());
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease num by 1 for next level
         score--;
         $score.text(score);
         loseCondition();
-      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
-        // if(mushroom){
-        //   score--;
-        // }
-        // if(stars){
-        //   score += 10;
-        // }
-        // coin has hit mario
-        // $coinsSound.play();
-        displayingScore();
-        $coin.css('background-image', creatingMashroomAndStars());
+      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120){
+        if($coin.hasClass('mushroom')) {
+          // mario caught a mushroom
+          score += 2;
+        } else if($coin.hasClass('star')) {
+          // mario caught a star
+          score += 3;
+        } else {
+          // mario caught a coin
+          coinsSound.pause();
+          coinsSound.currentTime = 0;
+          coinsSound.play();
+          score++;
+        }
+
+        $score.text(score);
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
@@ -107,9 +106,13 @@ $(() => {
   }
 
   function checkingScore(){
-    if(score===100){
+    if(score >= 100){
       $('.final').css('visibility', 'visible');
       hidingClasses();
+      themeSong.pause();
+      themeSong.currentTime = 0;
+      winTheme.play();
+      return true;
     } else {
       switch(score){
         case 10:
@@ -170,10 +173,8 @@ $(() => {
   }
 
   function startButton(){
-    $coin.toArray().forEach((ball) => {
-      // setTimeout(() => {
-      dropCoins($(ball), generateSpeed(num));
-      // });
+    $coin.toArray().forEach((coin) => {
+      dropCoins($(coin), generateSpeed(num));
     });
   }
   $(document).keydown(function(event) {
@@ -183,7 +184,7 @@ $(() => {
     }
   });
   $button.on('click', () =>{
-    // $themeSong.play();
+    themeSong.play();
     startButton();
     $intro.hide();
     $grid.css('visibility', 'visible');
