@@ -11,10 +11,13 @@
   <!-- endinject -->
 </head>
 <body>
-  <audio id="themeSong" src="../audio/theme.mp3"></audio>
+  <audio id="themeSong" src="../audio/theme.mp3" loop></audio>
   <audio id="coinsSound" src="../audio/coin-effect.mp3"></audio>
   <audio id="gameOver" src="../audio/game-over.mp3"></audio>
-  <audio id="winTheme" src="../audio/win-sound.mp3"></audio>
+  <audio id="winTheme" src="../audio/win-sound.mp3" ></audio>
+  <audio id="mushroom" src="../audio/mushroom-sound.mp3" ></audio>
+  <audio id="starSound" src="../audio/star-sound.mp3" ></audio>
+  <audio id="lifeSound" src="../audio/life-goes-up.mp3" ></audio>
   <div class="wrapper">
     <div class="inner-wrapper">
       <div class="instructions">
@@ -22,7 +25,9 @@
         <button type="button" name="button">Start</button>
       </div>
       <div class="displayingScore">
-        <h2>Your score: <span class="score"></span></h2>
+        <h2>Coins: <span class="score"></span></h2>
+        <h2>Lifes: <span class="life">3</span></h2>
+        <h2>Stars: <span class="stars">0</span></h2>
         <h2>Level: <span class="level">1</span></h2>
       </div>
       <div class="grid">

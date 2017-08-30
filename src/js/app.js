@@ -9,10 +9,19 @@ $(() => {
   let level6 = false;
   let level7 = false;
   let finalLevel = false;
+  let life = 3;
+  let stars = 0;
+  let lose = false;
+  let timerId = null;
+  const $life = $('.life');
+  const $stars = $('.stars');
   const winTheme = document.getElementById('winTheme');
   const gameOver = document.getElementById('gameOver');
   const themeSong = document.getElementById('themeSong');
   const coinsSound = document.getElementById('coinsSound');
+  const mushroom = document.getElementById('mushroom');
+  const lifeSound = document.getElementById('lifeSound');
+  const starSound = document.getElementById('starSound');
 
   const $coin = $('.coins');
   const $button = $('button');
@@ -43,64 +52,72 @@ $(() => {
     $('h2').hide();
   }
 
-  function loseCondition(){
-    if(score<0){
-      $('.lose').css('visibility', 'visible');
-      hidingClasses();
-      themeSong.pause();
-      themeSong.currentTime = 0;
-      gameOver.play();
-      return true;
+  function checkStars(){
+    if(stars===10){
+      life++;
+      lifeSound.play();
+      $life.text(life);
+      stars = 0;
     }
   }
-  // function checkingHealth(){
-  //   if ()
-  // }
   //dropping coins with setTimeout function
   function dropCoins($coin, speed){
-
     const marginTop = parseFloat($coin.css('margin-top'));
     if(marginTop === 0) {
       const randomNum = Math.random();
       if (randomNum >= 0.5 && randomNum <= 0.7) {
-        $coin.removeClass('mushroom star').addClass('mushroom');
+        $coin.removeClass('mushroom star coins').addClass('mushroom');
       } else if(randomNum > 0.7 && randomNum < 0.9) {
-        $coin.removeClass('mushroom star').addClass('star');
+        $coin.removeClass('mushroom star coins').addClass('star');
       } else {
-        $coin.removeClass('mushroom star');
+        $coin.removeClass('mushroom star').addClass('coins');
       }
     }
-    const timerId = setTimeout(() => {
+    timerId = setTimeout(() => {
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
-        $coin.css('margin-top', 0);
-        speed = generateSpeed(num);//decrease num by 1 for next level
-        score--;
-        $score.text(score);
-        loseCondition();
+        if($coin.hasClass('coins')){
+          score--;
+          $score.text(score);
+          // loseCondition();
+          $coin.css('margin-top', 0);
+          speed = generateSpeed(num);//decrease num by 1 for next level
+        } else {
+          $coin.css('margin-top', 0);
+          speed = generateSpeed(num);
+        }
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120){
         if($coin.hasClass('mushroom')) {
           // mario caught a mushroom
-          score += 2;
+          mushroom.pause();
+          mushroom.currentTime = 0;
+          mushroom.play();
+          life--;
+          $life.text(life);
         } else if($coin.hasClass('star')) {
           // mario caught a star
-          score += 3;
+          starSound.pause();
+          starSound.currentTime = 0;
+          starSound.play();
+          stars++;
+          $stars.text(stars);
+          checkStars();
         } else {
           // mario caught a coin
           coinsSound.pause();
           coinsSound.currentTime = 0;
           coinsSound.play();
-          score++;
+          score+= 10;
         }
-
         $score.text(score);
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
+        // loseCondition();
       } else {
         $coin.css('margin-top', marginTop + 2);//add more to increase the speed
       }
-      if(!loseCondition()) dropCoins($coin, speed);
+      if(!lose) dropCoins($coin, speed);
     }, speed);
     timers.push(timerId);
   }
@@ -112,7 +129,15 @@ $(() => {
       themeSong.pause();
       themeSong.currentTime = 0;
       winTheme.play();
-      return true;
+      clearInterval(timerId);
+    } else if(score<0 || life===0){
+      $('.lose').css('visibility', 'visible');
+      hidingClasses();
+      themeSong.pause();
+      themeSong.currentTime = 0;
+      gameOver.play();
+      lose = true;
+      clearInterval(timerId);
     } else {
       switch(score){
         case 10:
@@ -190,4 +215,5 @@ $(() => {
     $grid.css('visibility', 'visible');
     $('h2').css('visibility', 'visible');
   });
+
 }); //leave this

@@ -8,7 +8,6 @@ body{
 }
 
 .wrapper {
-
   background-image: url('../images/mario-wallpaper.png');
   background-size: cover;
   background-position: center bottom;
@@ -45,22 +44,34 @@ body{
 
 
 .coins{
-  background-image: url('../images/coin.png');
+  background-image: url(../images/coin.png);
   background-size: contain;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
-
-  &.mushroom {
-    background-image: url(../images/mushroom.gif);
-  }
-
-  &.star {
-    background-image: url(../images/mario-star.gif);
-  }
 }
+.mushroom {
+    background-image: url(../images/mushroom.gif);
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.star {
+    background-image: url(../images/mario-star.gif);
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 .final{
   visibility: hidden;
 }
