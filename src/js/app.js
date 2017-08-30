@@ -2,6 +2,16 @@ $(() => {
   let num = 15;
   let level = 1;
   let score = 0;
+  let level2 = false;
+  let level3 = false;
+  let level4 = false;
+  let level5 = false;
+  let level6 = false;
+  let level7 = false;
+  let finalLevel = false;
+  let coins = false;
+  let stars = false;
+  let mushroom = false;
   // const $coinsSound = $('.coinsSound');
   // const $themeSong = $('.themeSong');
   const $coin = $('.coins');
@@ -44,25 +54,47 @@ $(() => {
       hidingClasses();
       return true;
     }
-    // return false;
   }
-
+  function creatingMashroomAndStars(){
+    const randomNum = parseFloat(Math.random()).toFixed(2);
+    console.log('randomNum', randomNum);
+    if (randomNum >= 0.5 && randomNum <= 0.7) {
+      mushroom = true;
+      return 'url(../images/mushroom.gif)'; //put the mashroom instead of the coin
+    } else if(randomNum > 0.7 && randomNum <= 0.9) {
+      stars = true;
+      return 'url(../images/mario-star.gif)';
+    } else {
+      coins = true;
+      return 'url(../images/coin.png)';
+    }
+  }
+  // function checkingHealth(){
+  //   if ()
+  // }
   //dropping coins with setTimeout function
   function dropCoins($coin, speed){
     const marginTop = parseFloat($coin.css('margin-top'));
     const timerId = setTimeout(() => {
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
+        $coin.css('background-image', creatingMashroomAndStars());
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease num by 1 for next level
         score--;
         $score.text(score);
         loseCondition();
-        console.log(score);
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
+        // if(mushroom){
+        //   score--;
+        // }
+        // if(stars){
+        //   score += 10;
+        // }
         // coin has hit mario
         // $coinsSound.play();
         displayingScore();
+        $coin.css('background-image', creatingMashroomAndStars());
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
@@ -81,32 +113,53 @@ $(() => {
     } else {
       switch(score){
         case 10:
-          changingLevel();
-          num-=1;
+          if(!level2){
+            changingLevel();
+            num-=1;
+          }
+          level2 = true;
           break;
         case 20:
-          changingLevel();
-          num-=2;
+          if(!level3){
+            changingLevel();
+            num-=4;
+          }
+          level3 = true;
           break;
         case 30:
-          changingLevel();
-          num-=3;
+          if(!level4){
+            changingLevel();
+            num-=7;
+          }
+          level4 = true;
           break;
         case 50:
-          changingLevel();
-          num-=4;
+          if(!level5){
+            changingLevel();
+            num-=10;
+          }
+          level5 = true;
           break;
         case 70:
-          changingLevel();
-          num-=5;
+          if(!level6){
+            changingLevel();
+            num-=15;
+          }
+          level6 = true;
           break;
         case 80:
-          changingLevel();
-          num-=6;
+          if(!level7){
+            changingLevel();
+            num-=40;
+          }
+          level7 = true;
           break;
         case 90:
-          changingLevel();
-          num-=9;
+          if(!finalLevel){
+            changingLevel();
+            num-=50;
+          }
+          finalLevel = true;
           break;
       }
     }
