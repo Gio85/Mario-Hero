@@ -22,11 +22,15 @@
     <div class="inner-wrapper">
       <div class="instructions">
         <h1>Welcome to Mario Hero game.</h1>
-        <button type="button" name="button">Start</button>
+        <h3>Type your name below.</h3>
+        <input id="name" type="text" name="name">
+        <button id="start"type="button" name="button">Start</button>
       </div>
       <div class="displayingScore">
+        <h2>Your Name: <span class="userName"></span></h2>
         <h2>Coins: <span class="score"></span></h2>
-        <h2>Lifes: <span class="life">3</span></h2>
+        <h2>Coins left behind: <span class="behind"></span></h2>
+        <h2>Lifes: <span class="life">1</span></h2>
         <h2>Stars: <span class="stars">0</span></h2>
         <h2>Level: <span class="level">1</span></h2>
       </div>
@@ -48,12 +52,15 @@
         <h1>You WIN!!</h1>
         <div class="princess">
           <img src="../images/MarioPrincessKiss.gif" alt="Mario Princess Kiss">
-          <h1>Thank you Mario. You saved my life, again!</h1>
+          <h1>Thank you <span class="userName"></span>. You saved my life!</h1>
+          <h2>You compleate the game in: <span id="time"></span></h2>
         </div>
+        <div class="lose">
+          <h1><span class="loseMessage"></span></h1>
+        </div>
+        <button id="reset" type="button" name="button">Play again.</button>
       </div>
-      <div class="lose">
-        <h1>You lose!</h1>
-      </div>
+
     </div>
   </div>
 </body>
