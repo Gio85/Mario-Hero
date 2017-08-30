@@ -61,7 +61,7 @@ $(() => {
     $mario.removeClass('mario right left');
   }
 
-  function changingLevel(){
+  function increaseLevel(){
     level++;
     $level.text(level);
   }
@@ -72,7 +72,11 @@ $(() => {
     $score.hide();
     $('h2').hide();
   }
-
+  function applyingLifeSound(){
+    lifeSound.pause();
+    lifeSound.currentTime = 0;
+    lifeSound.play();
+  }
   //increasing the life by the stars
   function checkStars(){
     if(stars===10){
@@ -80,10 +84,48 @@ $(() => {
       $life.text(life);
       stars = 0;
       $stars.text(stars);
-      lifeSound.pause();
-      lifeSound.currentTime = 0;
-      lifeSound.play();
+      applyingLifeSound();
     }
+  }
+  function whenMarioCaughtCoins(){
+    coinsSound.pause();
+    coinsSound.currentTime = 0;
+    coinsSound.play();
+    score+= 1;
+  }
+
+  function whenMarioCaughtStars(){
+    starSound.pause();
+    starSound.currentTime = 0;
+    starSound.play();
+    stars++;
+    $stars.text(stars);
+    checkStars();
+  }
+
+  function whenMarioCaughtMushrooms(){
+    mushroom.pause();
+    mushroom.currentTime = 0;
+    mushroom.play();
+    life--;
+    $life.text(life);
+  }
+
+  function updatingLostCoinsCounter(){
+    lostCoins++;//function to update the counter and the display
+    $coinsBehind.text(lostCoins);
+  }
+
+  function losingCoins(){
+    life--;//the life goes down by one
+    $life.text(life);
+    lostCoins = 0;//reset the lostCoins counter to 0
+  }
+
+
+  function updatingScore(){
+    $score.text(score);
+    $coin.css('margin-top', 0);
   }
   //dropping coins with setTimeout function
   function dropCoins($coin, speed){
@@ -106,17 +148,13 @@ $(() => {
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
         if($coin.hasClass('coins')){
-          lostCoins++;//function to update the counter and the display
-          $coinsBehind.text(lostCoins);
-          if(lostCoins>10){//if the coins lost are more than 10
+          updatingLostCoinsCounter();
+          if(lostCoins>10){//if the lost coins are more than 10
             //a new function...
-            life--;//the life goes down by one
-            $life.text(life);
-            lostCoins = 0;//reset the lostCoins counter to 0
+            losingCoins();
           }
           score--;
-          $score.text(score);
-          $coin.css('margin-top', 0);
+          updatingScore();
           speed = generateSpeed(num);//decrease num by 1 for next level
           checkingScore();
         } else {
@@ -126,28 +164,15 @@ $(() => {
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120){//when mario caught..
         if($coin.hasClass('mushroom')) {
           // mario caught a mushroom.... make a function
-          mushroom.pause();
-          mushroom.currentTime = 0;
-          mushroom.play();
-          life--;
-          $life.text(life);
+          whenMarioCaughtMushrooms();
         } else if($coin.hasClass('star')) {
           // mario caught a star... make a function
-          starSound.pause();
-          starSound.currentTime = 0;
-          starSound.play();
-          stars++;
-          $stars.text(stars);
-          checkStars();
+          whenMarioCaughtStars();
         } else {
           // mario caught a coin....make a function
-          coinsSound.pause();
-          coinsSound.currentTime = 0;
-          coinsSound.play();
-          score+= 1;
+          whenMarioCaughtCoins();
         }
-        $score.text(score);
-        $coin.css('margin-top', 0);//put the coins/mushroom/starts back to the top
+        updatingScore();
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
       } else {
@@ -157,112 +182,110 @@ $(() => {
     }, speed);
     timers.push(timerId);
   }
-
+  function winCase(){
+    hidingClasses();
+    themeSong.pause();
+    themeSong.currentTime = 0;
+    winTheme.play();
+    clearInterval(timerId);
+  }
+  function scoreLoseCase(){
+    $('.lose').css('visibility', 'visible');
+    hidingClasses();
+    themeSong.pause();
+    themeSong.currentTime = 0;
+    gameOver.play();
+    lose = true;
+    clearInterval(timerId);
+    $loseMessage.text('You have lost to many coins');
+  }
+  function lifeLoseCase(){
+    $('.lose').css('visibility', 'visible');
+    hidingClasses();
+    themeSong.pause();
+    themeSong.currentTime = 0;
+    gameOver.play();
+    lose = true;
+    clearInterval(timerId);
+    $loseMessage.text('You have lost your lifes');
+  }
   function checkingScore(){
     if(score >= 100){
       $('.final').css('visibility', 'visible');
       // var end = new Date().getTime(); //--->it did not work
       // var time = (end - start)/1000;
       // $time.text(time);
-
-      //i can put all the statements below into an unic function like winningScenario
-
-      hidingClasses();
-      themeSong.pause();
-      themeSong.currentTime = 0;
-      winTheme.play();
-      clearInterval(timerId);
-
-      //
+      winCase();
     } else if(score<0 || life===0){
       if(score<0){
-        // i can do the same here...
-        $('.lose').css('visibility', 'visible');
-        hidingClasses();
-        themeSong.pause();
-        themeSong.currentTime = 0;
-        gameOver.play();
-        lose = true;
-        clearInterval(timerId);
-        $loseMessage.text('You have lost to many coins');
-
-        //
+        scoreLoseCase();
       } else if(life===0){
-        //and in here too...
-        $('.lose').css('visibility', 'visible');
-        hidingClasses();
-        themeSong.pause();
-        themeSong.currentTime = 0;
-        gameOver.play();
-        lose = true;
-        clearInterval(timerId);
-        $loseMessage.text('You have lost your lifes');
-        //
+        lifeLoseCase();
       }
     } else {
-      //put the below statement in a function
-      switch(score){
-        case 10:
-          if(!level2){
-            changingLevel();
-            num-=1;
-          }
-          level2 = true;
-          break;
-        case 20:
-          if(!level3){
-            changingLevel();
-            num-=4;
-          }
-          level3 = true;
-          break;
-        case 30:
-          if(!level4){
-            changingLevel();
-            num-=7;
-          }
-          level4 = true;
-          break;
-        case 50:
-          if(!level5){
-            changingLevel();
-            num-=10;
-          }
-          level5 = true;
-          break;
-        case 70:
-          if(!level6){
-            changingLevel();
-            num-=15;
-          }
-          level6 = true;
-          break;
-        case 80:
-          if(!level7){
-            changingLevel();
-            num-=40;
-          }
-          level7 = true;
-          break;
-        case 90:
-          if(!finalLevel){
-            changingLevel();
-            num-=50;
-          }
-          finalLevel = true;
-          break;
-      }
-
-      //
-
+      checkingLevels();
     }
   }
 
+
+  function checkingLevels(){
+    switch(score){
+      case 10:
+        if(!level2){
+          increaseLevel();
+          num-=1;
+        }
+        level2 = true;
+        break;
+      case 20:
+        if(!level3){
+          increaseLevel();
+          num-=4;
+        }
+        level3 = true;
+        break;
+      case 30:
+        if(!level4){
+          increaseLevel();
+          num-=7;
+        }
+        level4 = true;
+        break;
+      case 50:
+        if(!level5){
+          increaseLevel();
+          num-=10;
+        }
+        level5 = true;
+        break;
+      case 70:
+        if(!level6){
+          increaseLevel();
+          num-=15;
+        }
+        level6 = true;
+        break;
+      case 80:
+        if(!level7){
+          increaseLevel();
+          num-=40;
+        }
+        level7 = true;
+        break;
+      case 90:
+        if(!finalLevel){
+          increaseLevel();
+          num-=50;
+        }
+        finalLevel = true;
+        break;
+    }
+  }
   function generateSpeed(num) {
     return Math.ceil(Math.random() * 3) + num;
   }
 
-  function startTheGame(){
+  function letTheCoinsDropping(){
     $coin.toArray().forEach((coin) => {
       dropCoins($(coin), generateSpeed(num));
     });
@@ -273,26 +296,26 @@ $(() => {
       case 39: return changingClass(3, 'right');
     }
   });
+  function makingTheGridVisible(){
+    $grid.css('visibility', 'visible');
+    $('h2').css('visibility', 'visible');
+  }
+  function startTheGame(){
+    themeSong.play();
+    $userName.text($Name.val());
+    $intro.hide();
+    makingTheGridVisible();
+  }
   $startButton.on('click', () =>{
     // start = new Date().getTime();//not working
     // console.log(player[0]);
     // console.log($Name.val());
+    letTheCoinsDropping();
     startTheGame();
-    //i can try to put those into a function
-    themeSong.play();
-    $userName.text($Name.val());
-    $intro.hide();
-    $grid.css('visibility', 'visible');
-    $('h2').css('visibility', 'visible');
-
-    //
   });
   $resetButton.on('click', () =>{
-    startTheGame();
-    //do the same in here...
-    $grid.css('visibility', 'visible');
-    $('h2').css('visibility', 'visible');
-    //
+    letTheCoinsDropping();
+    makingTheGridVisible();
   });
 
 
