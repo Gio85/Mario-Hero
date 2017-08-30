@@ -56,6 +56,9 @@ $(() => {
         $coin.css('margin-top', 0);
         speed = generateSpeed(num);//decrease num by 1 for next level
         score--;
+        $score.text(score);
+        loseCondition();
+        console.log(score);
       } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120) {//120 is a random given number
         // coin has hit mario
         // $coinsSound.play();
@@ -115,9 +118,9 @@ $(() => {
 
   function startButton(){
     $coin.toArray().forEach((ball) => {
-      setTimeout(() => {
-        dropCoins($(ball), generateSpeed(num));
-      }, generateSpeed(10));
+      // setTimeout(() => {
+      dropCoins($(ball), generateSpeed(num));
+      // });
     });
   }
   $(document).keydown(function(event) {
