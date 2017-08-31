@@ -17,6 +17,8 @@ $(() => {
   let level6 = false;
   let level7 = false;
   let finalLevel = false;
+  const leftButton = $('#leftButton');
+  const rightButton = $('#rightButton');
 
   //audio constants
   const winTheme = document.getElementById('winTheme');
@@ -131,7 +133,7 @@ $(() => {
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '../public/images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -310,6 +312,16 @@ $(() => {
       case 37: return changingClass(0, 'left');
       case 39: return changingClass(3, 'right');
     }
+  });
+
+  leftButton.on('click', ()=>{
+    changingClass(0, 'left');
+    console.log('clicked left');
+  });
+
+  rightButton.on('click', ()=>{
+    changingClass(3, 'right');
+    console.log('clicked right');
   });
   function makingTheGridVisible(){
     $('.displayingScore').show();

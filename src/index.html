@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="icon" href="../public/images/marioIcon.png">
+  <link rel="icon" href="/public/images/marioIcon.png">
   <title>Mario Hero</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- inject:js -->
@@ -11,19 +11,19 @@
   <!-- endinject -->
 </head>
 <body>
-  <audio id="themeSong" src="../audio/theme.mp3" loop></audio>
-  <audio id="coinsSound" src="../audio/coin-effect.mp3"></audio>
-  <audio id="gameOver" src="../audio/game-over.mp3"></audio>
-  <audio id="winTheme" src="../audio/win-sound.mp3" ></audio>
-  <audio id="mushroom" src="../audio/mushroom-sound.mp3" ></audio>
-  <audio id="starSound" src="../audio/star-sound.mp3" ></audio>
-  <audio id="lifeSound" src="../audio/life-goes-up.mp3" ></audio>
+  <audio id="themeSong" src="/public/audio/theme.mp3" loop></audio>
+  <audio id="coinsSound" src="/public/audio/coin-effect.mp3"></audio>
+  <audio id="gameOver" src="/public/audio/game-over.mp3"></audio>
+  <audio id="winTheme" src="/public/audio/win-sound.mp3" ></audio>
+  <audio id="mushroom" src="/public/audio/mushroom-sound.mp3" ></audio>
+  <audio id="starSound" src="/public/audio/star-sound.mp3" ></audio>
+  <audio id="lifeSound" src="/public/audio/life-goes-up.mp3" ></audio>
   <div class="wrapper">
     <div class="inner-wrapper">
       <div class="instructions">
         <h1>Welcome to Mario Hero game.</h1>
         <h2>Collect as many coins as you can to save the Princess Peach!
-        <img id="princessPeach"src="../public/images/princessFace.png" alt="Princess Peach"></h2>
+        <img id="princessPeach"src="/public/images/princessFace.png" alt="Princess Peach"></h2>
         <p>Type your name below.</p>
         <input id="name" type="text" name="name">
         <p>Press 'Next' to pick up your character</p>
@@ -32,10 +32,10 @@
       <div class="choosingCharacter">
         <p>Choose your character</p>
         <div class="marioFace">
-          <h3 id="marioText">Mario</h3><img src="../public/images/marioFace.png" alt="Mario Face" id="mario">
+          <h3 id="marioText">Mario</h3><img src="/public/images/marioFace.png" alt="Mario Face" id="mario">
         </div>
         <div class="luigiFace">
-          <h3 id="luigiText">Luigi</h3><img src="../public/images/luigiFace.png" alt="Luigi Face" id="luigi" width="90px">
+          <h3 id="luigiText">Luigi</h3><img src="/public/images/luigiFace.png" alt="Luigi Face" id="luigi" width="90px">
         </div>
         <p>Press 'Start' to start the game</p><button type="start" name="button" id="start">Start</button>
       </div>
@@ -65,7 +65,7 @@
         <div class="win">
           <h1>You WIN!!</h1>
           <div class="princess">
-            <img class="winImage" src="../public/images/MarioPrincessKiss.gif" alt="Princess Kiss">
+            <img class="winImage" src="/public/images/MarioPrincessKiss.gif" alt="Princess Kiss">
             <h1>Thank you <span class="userName"></span>. You saved my life!</h1>
           </div>
         </div>
@@ -77,8 +77,8 @@
 
     </div>
     <div class="directionButtons">
-        <button id="leftArrow" type="button" name="button">LEFT</button>
-        <button id="rightArrow" type="button" name="button">RIGHT</button>
+        <button id="leftButton" type="button" name="button">LEFT</button>
+        <button id="rightButton" type="button" name="button">RIGHT</button>
     </div>
     <footer>Made with &hearts; by Giovanni Galiero </footer>
   </div>
