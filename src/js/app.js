@@ -93,7 +93,7 @@ $(() => {
     coinsSound.pause();
     coinsSound.currentTime = 0;
     coinsSound.play();
-    score+= 10;
+    score+= 1;
   }
 
   function whenMarioCaughtStars(){
@@ -133,7 +133,7 @@ $(() => {
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '../images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -309,15 +309,20 @@ $(() => {
   }
   $(document).keydown(function(event) {
     switch (event.keyCode) {
-      case 37: return changingClass(0, 'left');
-      case 39: return changingClass(3, 'right');
+      case 37: changingClass(0, 'left');
+        break;
+      case 39: changingClass(3, 'right');
     }
   });
 
-  leftButton.on('click', ()=>{
+  function goLeft(){
     changingClass(0, 'left');
     console.log('clicked left');
-  });
+  }
+
+
+
+  leftButton.on('click', goLeft);
 
   rightButton.on('click', ()=>{
     changingClass(3, 'right');
