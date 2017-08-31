@@ -93,7 +93,7 @@ $(() => {
     coinsSound.pause();
     coinsSound.currentTime = 0;
     coinsSound.play();
-    score+= 1;
+
   }
 
   function whenMarioCaughtStars(){
@@ -133,7 +133,7 @@ $(() => {
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '/images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -147,10 +147,7 @@ $(() => {
     mario = false;
     choosingCharacter();
   });
-  function updatingScore($coin){
-    $score.text(score);
-    $coin.css('margin-top', 0);
-  }
+
   //dropping coins with setTimeout function
   function dropCoins($coin, speed){
     const marginTop = parseFloat($coin.css('margin-top'));
@@ -169,18 +166,18 @@ $(() => {
       }
     }
     timerId = setTimeout(() => {
-      console.log('timer running');
-      // console.log('timer running');
+
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
         if($coin.hasClass('coins')){
-          updatingLostCoinsCounter();
           if(lostCoins>=10){//if the lost coins are more than 10
             //a new function...
             losingCoins();
           }
+          updatingLostCoinsCounter();
           score--;
-          updatingScore($coin);
+          $score.text(score);
+          $coin.css('margin-top', 0);
           speed = generateSpeed(num);//decrease num by 1 for next level
           checkingScore();
         } else {
@@ -192,13 +189,17 @@ $(() => {
           // mario caught a mushroom.... make a function
           whenMarioCaughtMushrooms();
         } else if($coin.hasClass('star')) {
+          console.log('sono in stella',score);
           // mario caught a star... make a function
           whenMarioCaughtStars();
-        } else {
+        } else if($coin.hasClass('coins')) {
+          score++;
+          console.log('sono in coins',score);
           // mario caught a coin....make a function
           whenMarioCaughtCoins();
         }
-        updatingScore($coin);
+        $coin.css('margin-top', 0);
+        $score.text(score);
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
       } else {
@@ -235,6 +236,7 @@ $(() => {
 
     // Lost too many coins
     if(score < 0) {
+      console.log(score);
       $gameOverMessage.text('You have lost too many coins');
     }
 
@@ -344,6 +346,7 @@ $(() => {
     $userName.text(nameValue);
   });
   $startButton.on('click', () =>{
+    console.log('sono in start', score);
     letTheCoinsDropping();
     startTheGame();
     $choosingCharacter.hide();
@@ -361,8 +364,9 @@ $(() => {
     level = 1;
     $level.text(level);
     num = 15;
-    score = 0;
     $score.text(score);
+    score = 0;
+
   }
 
   function showingDivs(){
@@ -372,6 +376,7 @@ $(() => {
   }
 
   $resetButton.on('click', () =>{
+    console.log('reset button',score);
     resetGame();
     showingDivs();
     letTheCoinsDropping();
@@ -381,6 +386,8 @@ $(() => {
     winTheme.currentTime = 0;
     $('.win').hide();
     $coin.css('margin-top', 0);
+    gameOverAudio.pause();
+    gameOverAudio.currentTime = 0;
   });
 
 
