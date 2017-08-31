@@ -133,7 +133,7 @@ $(() => {
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '../images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
     }
   }
 
