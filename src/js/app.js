@@ -1,18 +1,11 @@
 
 $(() => {
-  //trying to make an object to store the user's name and the score
-  // const player = [];
-  const $Name = $('#name');
-  const $userName = $('.userName');
-  // player.push({
-  //   name: name
-  // });
-  // console.log($Name.val());
+
   let lostCoins = 0;
   const $coinsBehind = $('.behind');
   const $loseMessage = $('.loseMessage');
-  // let start =null;
-  // const $time = ('#time');
+  const $nameValue = $('#name').val();
+  const $userName = $('.userName');
   let num = 15;
   let level = 1;
   let score = 0;
@@ -57,8 +50,7 @@ $(() => {
   let stars = 0;
   let lose = false;
   let timerId = null;
-  const $left = $('left');
-  const $right = $('.right');
+
 
   //changing the mario directions image
   function changingClass(index, direction){
@@ -78,7 +70,7 @@ $(() => {
     $grid.hide();
     $level.hide();
     $score.hide();
-    $('h2').hide();
+
   }
   function applyingLifeSound(){
     lifeSound.pause();
@@ -140,13 +132,11 @@ $(() => {
   $mario.on('click', () =>{
     mario = true;
     luigi = false;
-    console.log('mario'+ mario , 'luigi' + luigi);
     choosingCharacter();
   });
   $luigi.on('click', () =>{
     luigi = true;
     mario = false;
-    console.log('mario' + mario, 'luigi' + luigi);
     choosingCharacter();
   });
   function updatingScore($coin){
@@ -209,8 +199,10 @@ $(() => {
     timers.push(timerId);
   }
   function winCase(){
+    $('.endGame').show();
+    $('.displayingScore').hide();
     $resetButton.css('visibility', 'visible');
-    $('.win').css('visibility', 'visible');
+    $('.win').show();
     hidingClasses();
     themeSong.pause();
     themeSong.currentTime = 0;
@@ -218,7 +210,9 @@ $(() => {
     clearInterval(timerId);
   }
   function scoreLoseCase(){
-    $('.lose').css('visibility', 'visible');
+    $('.endGame').show();
+    $('.lose').show();
+    $('.displayingScore').hide();
     $resetButton.css('visibility', 'visible');
     hidingClasses();
     themeSong.pause();
@@ -229,7 +223,9 @@ $(() => {
     $loseMessage.text('You have lost to many coins');
   }
   function lifeLoseCase(){
-    $('.lose').css('visibility', 'visible');
+    $('.endGame').show();
+    $('.lose').show();
+    $('.displayingScore').hide();
     $resetButton.css('visibility', 'visible');
     hidingClasses();
     themeSong.pause();
@@ -241,10 +237,6 @@ $(() => {
   }
   function checkingScore(){
     if(score >= 100){
-
-      // var end = new Date().getTime(); //--->it did not work
-      // var time = (end - start)/1000;
-      // $time.text(time);
       winCase();
     } else if(score<0 || life===0){
       if(score<0){
@@ -327,32 +319,45 @@ $(() => {
     }
   });
   function makingTheGridVisible(){
-    $grid.css('visibility', 'visible');
-    $('h2').css('visibility', 'visible');
+    $('.displayingScore').show();
+    $grid.show();
   }
   function startTheGame(){
     $skinny.eq(0).addClass(characterClass);
     themeSong.play();
-    $userName.text($Name.val());
-
     makingTheGridVisible();
   }
   $nextButton.on('click', () =>{
-    $choosingCharacter.css('visibility', 'visible');
+    $choosingCharacter.show();
     $intro.hide();
-
-    const name = $Name.val();
-    console.log(name);
+    $userName.text($nameValue);
   });
   $startButton.on('click', () =>{
-    // choosingCharacter();
     letTheCoinsDropping();
     startTheGame();
     $choosingCharacter.hide();
   });
   $resetButton.on('click', () =>{
+    themeSong.play();
+    life = 1;
+    $life.text(life);
+    stars = 0;
+    $stars.text(stars);
+    lose = false;
+    lostCoins = 0;
+    $coinsBehind.text(lostCoins);
+    level = 1;
+    $level.text(level);
+    num = 15;
+    score = 0;
+    $score.text(score);
     letTheCoinsDropping();
     makingTheGridVisible();
+    $('.endGame').hide();
+    $coin.css('margin-top', 0);
+    $grid.show();
+    $level.show();
+    $score.show();
   });
 
 
