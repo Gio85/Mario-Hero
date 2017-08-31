@@ -133,7 +133,7 @@ $(() => {
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '/images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -346,6 +346,7 @@ $(() => {
     $userName.text(nameValue);
   });
   $startButton.on('click', () =>{
+    if(!mario && !luigi) return false;
     console.log('sono in start', score);
     letTheCoinsDropping();
     startTheGame();
@@ -364,8 +365,9 @@ $(() => {
     level = 1;
     $level.text(level);
     num = 15;
-    $score.text(score);
     score = 0;
+    $score.text(score);
+
 
   }
 
