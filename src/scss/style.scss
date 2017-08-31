@@ -44,7 +44,7 @@ margin-right: 100px;
   width: 100px;
 }
 .wrapper {
-  background-image: url('/images/mario-wallpaper.png');
+  background-image: url('/public/images/mario-wallpaper.png');
   background-size: cover;
   background-position: center bottom;
   width: 100%;
@@ -84,7 +84,7 @@ margin-right: 100px;
 }
 
 .coins{
-  background-image: url(/images/coin.png);
+  background-image: url(/public/images/coin.png);
   background-size: contain;
   width: 40px;
   height: 40px;
@@ -93,7 +93,7 @@ margin-right: 100px;
   margin-right: auto;
 }
 .mushroom {
-    background-image: url(/images/mushroom.gif);
+    background-image: url(/public/images/mushroom.gif);
     background-size: contain;
     width: 40px;
     height: 40px;
@@ -103,7 +103,7 @@ margin-right: 100px;
   }
 
 .star {
-    background-image: url(/images/mario-star.gif);
+    background-image: url(/public/images/mario-star.gif);
     background-size: contain;
     width: 40px;
     height: 40px;
@@ -170,20 +170,20 @@ display: none;
     }
     &.left {
       &.mario {
-        background-image: url('/images/mario-left.gif');
+        background-image: url('/public/images/mario-left.gif');
       }
       &.luigi {
-        background-image: url('/images/luigi-left.gif');
+        background-image: url('/public/images/luigi-left.gif');
       }
       width: 25%;
       background-size: 90px;
     }
     &.right {
       &.mario {
-        background-image: url('/images/mario-right.gif');
+        background-image: url('/public/images/mario-right.gif');
       }
       &.luigi {
-        background-image: url('/images/luigi-right.gif');
+        background-image: url('/public/images/luigi-right.gif');
       }
       width: 25%;
       background-size: 90px;
