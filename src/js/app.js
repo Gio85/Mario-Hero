@@ -3,8 +3,8 @@ $(() => {
 
   let lostCoins = 0;
   const $coinsBehind = $('.behind');
-  const $loseMessage = $('.loseMessage');
-  const $nameValue = $('#name').val();
+  const $gameOverMessage = $('.loseMessage');
+  let nameValue = null;
   const $userName = $('.userName');
   let num = 15;
   let level = 1;
@@ -20,7 +20,7 @@ $(() => {
 
   //audio constants
   const winTheme = document.getElementById('winTheme');
-  const gameOver = document.getElementById('gameOver');
+  const gameOverAudio = document.getElementById('gameOver');
   const themeSong = document.getElementById('themeSong');
   const coinsSound = document.getElementById('coinsSound');
   const mushroom = document.getElementById('mushroom');
@@ -38,7 +38,6 @@ $(() => {
   const $startButton = $('#start');
   const $coin = $('.coins');
   const $score = $('.score');
-  const timers = [];
   const $skinny = $('.skinny');
   const $grid = $('.grid');
   const $intro = $('.instructions');
@@ -48,8 +47,9 @@ $(() => {
   const $choosingCharacter = $('.choosingCharacter');
   let life = 1;
   let stars = 0;
-  let lose = false;
+  let gameOver = false;
   let timerId = null;
+  const $winImage = $('.winImage');
 
 
   //changing the mario directions image
@@ -91,7 +91,7 @@ $(() => {
     coinsSound.pause();
     coinsSound.currentTime = 0;
     coinsSound.play();
-    score+= 1;
+    score+= 10;
   }
 
   function whenMarioCaughtStars(){
@@ -124,8 +124,14 @@ $(() => {
   function choosingCharacter(){
     if(mario){
       characterClass = 'mario';
+      $('#marioText').css('background-color', 'red');
+      $('#luigiText').css('background-color', 'transparent');
+
     } else if (luigi){
       characterClass = 'luigi';
+      $('#marioText').css('background-color', 'transparent');
+      $('#luigiText').css('background-color', 'green');
+      $winImage.attr('src', '../images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -161,11 +167,13 @@ $(() => {
       }
     }
     timerId = setTimeout(() => {
+      console.log('timer running');
+      // console.log('timer running');
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
         if($coin.hasClass('coins')){
           updatingLostCoinsCounter();
-          if(lostCoins>10){//if the lost coins are more than 10
+          if(lostCoins>=10){//if the lost coins are more than 10
             //a new function...
             losingCoins();
           }
@@ -194,58 +202,43 @@ $(() => {
       } else {
         $coin.css('margin-top', marginTop + 2);//add more to increase the speed
       }
-      if(!lose) dropCoins($coin, speed);
+      if(!gameOver) dropCoins($coin, speed);
     }, speed);
-    timers.push(timerId);
+
   }
-  function winCase(){
-    $('.endGame').show();
-    $('.displayingScore').hide();
-    $resetButton.css('visibility', 'visible');
-    $('.win').show();
-    hidingClasses();
-    themeSong.pause();
-    themeSong.currentTime = 0;
-    winTheme.play();
-    clearInterval(timerId);
-  }
-  function scoreLoseCase(){
-    $('.endGame').show();
-    $('.lose').show();
-    $('.displayingScore').hide();
-    $resetButton.css('visibility', 'visible');
-    hidingClasses();
-    themeSong.pause();
-    themeSong.currentTime = 0;
-    gameOver.play();
-    lose = true;
-    clearInterval(timerId);
-    $loseMessage.text('You have lost to many coins');
-  }
-  function lifeLoseCase(){
-    $('.endGame').show();
-    $('.lose').show();
-    $('.displayingScore').hide();
-    $resetButton.css('visibility', 'visible');
-    hidingClasses();
-    themeSong.pause();
-    themeSong.currentTime = 0;
-    gameOver.play();
-    lose = true;
-    clearInterval(timerId);
-    $loseMessage.text('You have lost your lifes');
-  }
+
   function checkingScore(){
-    if(score >= 100){
-      winCase();
-    } else if(score<0 || life===0){
-      if(score<0){
-        scoreLoseCase();
-      } else if(life===0){
-        lifeLoseCase();
-      }
-    } else {
-      checkingLevels();
+    // Game is still going
+    if(score < 100 && score > 0 && life > 0) return checkingLevels();
+    // Game is over
+    $('.endGame').show();
+    $('.displayingScore').hide();
+    $resetButton.css('visibility', 'visible');
+    hidingClasses();
+    themeSong.pause();
+    themeSong.currentTime = 0;
+    gameOver = true;
+    clearInterval(timerId);
+
+    // Player has won
+    if(score >= 100) {
+      $('.win').show();
+      $('.lose').hide();
+      return winTheme.play();
+    }
+
+    // Player has lost
+    $('.lose').show();
+    gameOverAudio.play();
+
+    // Lost too many coins
+    if(score < 0) {
+      $gameOverMessage.text('You have lost too many coins');
+    }
+
+    // Lost too many lives
+    if(life <= 0) {
+      $gameOverMessage.text('You have lost your lives');
     }
   }
 
@@ -330,20 +323,22 @@ $(() => {
   $nextButton.on('click', () =>{
     $choosingCharacter.show();
     $intro.hide();
-    $userName.text($nameValue);
+    nameValue = $('#name').val();
+    $userName.text(nameValue);
   });
   $startButton.on('click', () =>{
     letTheCoinsDropping();
     startTheGame();
     $choosingCharacter.hide();
   });
-  $resetButton.on('click', () =>{
+
+  function resetGame(){
     themeSong.play();
     life = 1;
     $life.text(life);
     stars = 0;
     $stars.text(stars);
-    lose = false;
+    gameOver = false;
     lostCoins = 0;
     $coinsBehind.text(lostCoins);
     level = 1;
@@ -351,13 +346,24 @@ $(() => {
     num = 15;
     score = 0;
     $score.text(score);
-    letTheCoinsDropping();
-    makingTheGridVisible();
-    $('.endGame').hide();
-    $coin.css('margin-top', 0);
+  }
+
+  function showingDivs(){
     $grid.show();
     $level.show();
     $score.show();
+  }
+
+  $resetButton.on('click', () =>{
+    resetGame();
+    showingDivs();
+    letTheCoinsDropping();
+    makingTheGridVisible();
+    $('.endGame').hide();
+    winTheme.pause();
+    winTheme.currentTime = 0;
+    $('.win').hide();
+    $coin.css('margin-top', 0);
   });
 
 

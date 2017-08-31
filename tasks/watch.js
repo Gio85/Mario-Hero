@@ -7,6 +7,7 @@ const watch = () => {
   gulp.watch(`${config.src.images}${config.selectors.images}`, ['build-images']);
   gulp.watch(`${config.src.audio}${config.selectors.audio}`, ['build-audio']);
   gulp.watch(`${config.srcDir}${config.main.index}`, ['build-index']);
+  gulp.watch(`${config.src.fonts}${config.selectors.fonts}`, ['build-fonts']);
 };
 
 gulp.task('watch', watch);

@@ -32,10 +32,10 @@
       <div class="choosingCharacter">
         <p>Choose your character</p>
         <div class="marioFace">
-          <h3>Mario</h3><img src="../images/marioFace.png" alt="Mario Face" id="mario">
+          <h3 id="marioText">Mario</h3><img src="../images/marioFace.png" alt="Mario Face" id="mario">
         </div>
         <div class="luigiFace">
-          <h3>Luigi</h3><img src="../images/luigiFace.png" alt="Luigi Face" id="luigi" width="90px">
+          <h3 id="luigiText">Luigi</h3><img src="../images/luigiFace.png" alt="Luigi Face" id="luigi" width="90px">
         </div>
         <p>Press 'Start' to start the game</p><button type="start" name="button" id="start">Start</button>
       </div>
@@ -65,9 +65,8 @@
         <div class="win">
           <h1>You WIN!!</h1>
           <div class="princess">
-            <img src="../images/MarioPrincessKiss.gif" alt="Mario Princess Kiss">
+            <img class="winImage" src="../images/MarioPrincessKiss.gif" alt="Princess Kiss">
             <h1>Thank you <span class="userName"></span>. You saved my life!</h1>
-            <h2>You compleate the game in: <span id="time"></span></h2>
           </div>
         </div>
         <div class="lose">
@@ -77,6 +76,11 @@
       </div>
 
     </div>
+    <div class="directionButtons">
+        <button id="leftArrow" type="button" name="button">LEFT</button>
+        <button id="rightArrow" type="button" name="button">RIGHT</button>
+    </div>
+    <footer>Made with &hearts; by Giovanni Galiero </footer>
   </div>
 </body>
 </html>

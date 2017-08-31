@@ -15,13 +15,15 @@
       "js": "src/js/",
       "scss": "src/scss/",
       "images": "src/images/",
-      "audio": "src/audio/"
+      "audio": "src/audio/",
+      "fonts": "src/fonts/"
     },
     "dest": {
       "js": "public/js/",
       "css": "public/css/",
       "images": "public/images/",
-      "audio": "public/audio/"
+      "audio": "public/audio/",
+      "fonts": "public/fonts/"
     },
     "main": {
       "js": "app.js",
@@ -42,7 +44,8 @@
       "scss": "**/*.scss",
       "html": "**/*.html",
       "images": "**/*.{png,jpg,jpeg,gif,ico}",
-      "audio": "**/*.{mp3,wav,webm,ogg}"
+      "audio": "**/*.{mp3,wav,webm,ogg}",
+      "fonts": "**/*.{eot,svg,ttf,woff,woff2}"
     }
   },
   "devDependencies": {
