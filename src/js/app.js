@@ -4,7 +4,6 @@ $(() => {
   // const player = [];
   const $Name = $('#name');
   const $userName = $('.userName');
-  // const name = $Name.val();
   // player.push({
   //   name: name
   // });
@@ -36,9 +35,15 @@ $(() => {
   const starSound = document.getElementById('starSound');
 
   //game variables
-  const $coin = $('.coins');
+  const $mario = $('#mario');
+  const $luigi = $('#luigi');
+  let mario = false;
+  let luigi = false;
+  let characterClass = null;
+  const $nextButton = $('#next');
   const $resetButton = $('#reset');
   const $startButton = $('#start');
+  const $coin = $('.coins');
   const $score = $('.score');
   const timers = [];
   const $skinny = $('.skinny');
@@ -47,18 +52,21 @@ $(() => {
   const $level = $('.level');
   const $life = $('.life');
   const $stars = $('.stars');
+  const $choosingCharacter = $('.choosingCharacter');
   let life = 1;
   let stars = 0;
   let lose = false;
   let timerId = null;
+  const $left = $('left');
+  const $right = $('.right');
 
   //changing the mario directions image
   function changingClass(index, direction){
-    const $mario = $('.mario');
-    if($mario.index('.skinny') === index) return false;
-    const $next = direction === 'left' ? $mario.prev() : $mario.next();
-    $next.addClass('mario ' + direction);
-    $mario.removeClass('mario right left');
+    const $character = $('.character');
+    if($character.index('.skinny') === index) return false;
+    const $next = direction === 'left' ? $character.prev() : $character.next();
+    $next.addClass(`character ${direction} ${characterClass}`);
+    $character.removeClass(`character right left ${characterClass}`);
   }
 
   function increaseLevel(){
@@ -121,9 +129,27 @@ $(() => {
     $life.text(life);
     lostCoins = 0;//reset the lostCoins counter to 0
   }
+  function choosingCharacter(){
+    if(mario){
+      characterClass = 'mario';
+    } else if (luigi){
+      characterClass = 'luigi';
+    }
+  }
 
-
-  function updatingScore(){
+  $mario.on('click', () =>{
+    mario = true;
+    luigi = false;
+    console.log('mario'+ mario , 'luigi' + luigi);
+    choosingCharacter();
+  });
+  $luigi.on('click', () =>{
+    luigi = true;
+    mario = false;
+    console.log('mario' + mario, 'luigi' + luigi);
+    choosingCharacter();
+  });
+  function updatingScore($coin){
     $score.text(score);
     $coin.css('margin-top', 0);
   }
@@ -154,14 +180,14 @@ $(() => {
             losingCoins();
           }
           score--;
-          updatingScore();
+          updatingScore($coin);
           speed = generateSpeed(num);//decrease num by 1 for next level
           checkingScore();
         } else {
           $coin.css('margin-top', 0);
           speed = generateSpeed(num);
         }
-      } else if($coin.parent().hasClass('mario') && marginTop >= $skinny.height() - 120){//when mario caught..
+      } else if($coin.parent().hasClass(characterClass) && marginTop >= $skinny.height() - 120){//when mario caught..
         if($coin.hasClass('mushroom')) {
           // mario caught a mushroom.... make a function
           whenMarioCaughtMushrooms();
@@ -172,7 +198,7 @@ $(() => {
           // mario caught a coin....make a function
           whenMarioCaughtCoins();
         }
-        updatingScore();
+        updatingScore($coin);
         speed = generateSpeed(num);//decrease the number by 1 for next level
         checkingScore();
       } else {
@@ -183,6 +209,8 @@ $(() => {
     timers.push(timerId);
   }
   function winCase(){
+    $resetButton.css('visibility', 'visible');
+    $('.win').css('visibility', 'visible');
     hidingClasses();
     themeSong.pause();
     themeSong.currentTime = 0;
@@ -191,6 +219,7 @@ $(() => {
   }
   function scoreLoseCase(){
     $('.lose').css('visibility', 'visible');
+    $resetButton.css('visibility', 'visible');
     hidingClasses();
     themeSong.pause();
     themeSong.currentTime = 0;
@@ -201,6 +230,7 @@ $(() => {
   }
   function lifeLoseCase(){
     $('.lose').css('visibility', 'visible');
+    $resetButton.css('visibility', 'visible');
     hidingClasses();
     themeSong.pause();
     themeSong.currentTime = 0;
@@ -211,7 +241,7 @@ $(() => {
   }
   function checkingScore(){
     if(score >= 100){
-      $('.final').css('visibility', 'visible');
+
       // var end = new Date().getTime(); //--->it did not work
       // var time = (end - start)/1000;
       // $time.text(time);
@@ -301,17 +331,24 @@ $(() => {
     $('h2').css('visibility', 'visible');
   }
   function startTheGame(){
+    $skinny.eq(0).addClass(characterClass);
     themeSong.play();
     $userName.text($Name.val());
-    $intro.hide();
+
     makingTheGridVisible();
   }
+  $nextButton.on('click', () =>{
+    $choosingCharacter.css('visibility', 'visible');
+    $intro.hide();
+
+    const name = $Name.val();
+    console.log(name);
+  });
   $startButton.on('click', () =>{
-    // start = new Date().getTime();//not working
-    // console.log(player[0]);
-    // console.log($Name.val());
+    // choosingCharacter();
     letTheCoinsDropping();
     startTheGame();
+    $choosingCharacter.hide();
   });
   $resetButton.on('click', () =>{
     letTheCoinsDropping();

@@ -22,9 +22,17 @@
     <div class="inner-wrapper">
       <div class="instructions">
         <h1>Welcome to Mario Hero game.</h1>
-        <h3>Type your name below.</h3>
+        <h2>Collect as many coins as you can to save the Princess Peach!<img src="../images/princessFace.png" alt="Princess Peach" width="150px" height="150px"></h2>
+        <h5>Type your name below.</h5>
         <input id="name" type="text" name="name">
-        <button id="start"type="button" name="button">Start</button>
+        <p>Press 'Next' to pick up your character</p>
+        <button id="next"type="button" name="button">Next</button>
+      </div>
+      <div class="choosingCharacter">
+        <p>Choose your character</p>
+        <img src="../images/marioFace.png" alt="Mario Face" id="mario">
+        <img src="../images/luigiFace.png" alt="Luigi Face" id="luigi">
+        <p>Press 'Start' to start the game</p><button type="start" name="button" id="start">Start</button>
       </div>
       <div class="displayingScore">
         <h2>Your Name: <span class="userName"></span></h2>
@@ -35,7 +43,7 @@
         <h2>Level: <span class="level">1</span></h2>
       </div>
       <div class="grid">
-        <div class="skinny mario right">
+        <div class="skinny character right">
           <div id="c0"class="coins"></div>
         </div>
         <div class="skinny">
@@ -48,12 +56,14 @@
           <div class="coins"></div>
         </div>
       </div>
-      <div class="final">
-        <h1>You WIN!!</h1>
-        <div class="princess">
-          <img src="../images/MarioPrincessKiss.gif" alt="Mario Princess Kiss">
-          <h1>Thank you <span class="userName"></span>. You saved my life!</h1>
-          <h2>You compleate the game in: <span id="time"></span></h2>
+      <div class="endGame">
+        <div class="win">
+          <h1>You WIN!!</h1>
+          <div class="princess">
+            <img src="../images/MarioPrincessKiss.gif" alt="Mario Princess Kiss">
+            <h1>Thank you <span class="userName"></span>. You saved my life!</h1>
+            <h2>You compleate the game in: <span id="time"></span></h2>
+          </div>
         </div>
         <div class="lose">
           <h1><span class="loseMessage"></span></h1>
