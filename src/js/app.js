@@ -171,7 +171,7 @@ $(() => {
       }
     }
     timerId = setTimeout(() => {
-
+      console.log(marginTop, $skinny.height(), $coin.height());
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
         if($coin.hasClass('coins')){
@@ -194,12 +194,10 @@ $(() => {
           // mario caught a mushroom.... make a function
           whenMarioCaughtMushrooms();
         } else if($coin.hasClass('star')) {
-          console.log('sono in stella',score);
           // mario caught a star... make a function
           whenMarioCaughtStars();
         } else if($coin.hasClass('coins')) {
           score++;
-          console.log('sono in coins',score);
           // mario caught a coin....make a function
           whenMarioCaughtCoins();
         }
@@ -217,7 +215,7 @@ $(() => {
 
   function checkingScore(){
     // Game is still going
-    if(score < 100 && score > 0 && life > 0) return checkingLevels();
+    if(score < 100 && score >= 0 && life >= 0) return checkingLevels();
     // Game is over
     $('.endGame').show();
     $('.displayingScore').hide();
@@ -242,7 +240,6 @@ $(() => {
 
     // Lost too many coins
     if(score < 0) {
-      console.log(score);
       $gameOverMessage.text('You have lost too many coins');
     }
 
