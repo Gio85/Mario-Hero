@@ -12,19 +12,19 @@ const config           = require('../package').gulp;
 
 const buildJs = () => {
   return gulp.src(`${config.src.js}${config.selectors.js}`)
-  .pipe(jshint())
-  .pipe(jshint.reporter('jshint-stylish', {beep: true}))
-  .pipe(order([config.main.js,config.selectors.js]))
-  .pipe(babel({
-    presets: ['es2015']
-  }))
-  .pipe(concat(config.output.js))
-  .pipe(sourcemaps.init())
-  .pipe(gulpIf(global.production, uglify()))
-  .pipe(gulpIf(global.production, rename({ suffix: '.min' })))
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest(config.dest.js))
-  .pipe(gulpIf(!global.production, browserSync.stream()));
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish', {beep: true}))
+    .pipe(order([config.main.js,config.selectors.js]))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(concat(config.output.js))
+    .pipe(sourcemaps.init())
+    .pipe(gulpIf(global.production, uglify()))
+    .pipe(gulpIf(global.production, rename({ suffix: '.min' })))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(config.dest.js))
+    .pipe(gulpIf(!global.production, browserSync.stream()));
 };
 
 gulp.task('build-js', buildJs);

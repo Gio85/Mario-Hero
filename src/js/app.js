@@ -30,6 +30,7 @@ $(() => {
   const starSound = document.getElementById('starSound');
 
   //game variables
+  const $statistics = $('.statistics');
   const $mario = $('#mario');
   const $luigi = $('#luigi');
   let mario = false;
@@ -122,18 +123,22 @@ $(() => {
     life--;//the life goes down by one
     $life.text(life);
     lostCoins = 0;//reset the lostCoins counter to 0
+    mushroom.pause();
+    mushroom.currentTime = 0;
+    mushroom.play();
   }
   function choosingCharacter(){
     if(mario){
       characterClass = 'mario';
       $('#marioText').css('background-color', 'red');
       $('#luigiText').css('background-color', 'transparent');
+      $winImage.attr('src', '/public/images/MarioPrincessKiss.gif');
 
     } else if (luigi){
       characterClass = 'luigi';
       $('#marioText').css('background-color', 'transparent');
       $('#luigiText').css('background-color', 'green');
-      $winImage.attr('src', '/images/LuigiPrincessKiss.gif');
+      $winImage.attr('src', '/public/images/LuigiPrincessKiss.gif');
     }
   }
 
@@ -170,7 +175,7 @@ $(() => {
       if(marginTop >= $skinny.height() - $coin.height()) {
         // coin has hit floor
         if($coin.hasClass('coins')){
-          if(lostCoins>=10){//if the lost coins are more than 10
+          if(lostCoins>9){//if the lost coins are more than 10
             //a new function...
             losingCoins();
           }
@@ -227,6 +232,7 @@ $(() => {
     if(score >= 100) {
       $('.win').show();
       $('.lose').hide();
+      $statistics.text(`Stars ${stars} Lives ${life} Coins left behind ${lostCoins}`);
       return winTheme.play();
     }
 
@@ -321,8 +327,6 @@ $(() => {
     changingClass(0, 'left');
     console.log('clicked left');
   }
-
-
 
   leftButton.on('click', goLeft);
 
