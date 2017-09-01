@@ -243,10 +243,6 @@ footer {
   // display: none;
 }
 
-@media only screen and (max-width: 450px) {
-  /* show it on small screens */
+@-ms-viewport{
+  width: device-width;
 }
-//
-// @media screen and (min-width: 401px) and (max-width: 1024px) {
-//   .directionButtons{  display: block; }
-// }
