@@ -4,6 +4,8 @@
 
 A JavaScript game played in the DOM
 
+[Play it here!](https://mario-hero-app.herokuapp.com/ "Here!")
+
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728473-68e2c1b4-c878-11e7-83a4-8543b8768335.png)
 
 ## Rules
