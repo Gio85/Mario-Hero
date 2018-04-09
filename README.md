@@ -12,7 +12,6 @@ A JavaScript game played in the DOM
 
 The goal of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives(taking mushrooms), in order to save Princess Peach.
 
-The users can play with two different characters
 
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728478-713d8dbc-c878-11e7-8e54-4c0fd5e92486.png)
 
