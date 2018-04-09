@@ -12,12 +12,6 @@ A JavaScript game played in the DOM
 
 [Play it here!](https://mario-hero-app.herokuapp.com/ "Here!")
 
-![MarioHero](https://user-images.githubusercontent.com/20437891/32728473-68e2c1b4-c878-11e7-83a4-8543b8768335.png)
-
-![MarioHero](https://user-images.githubusercontent.com/20437891/32728478-713d8dbc-c878-11e7-8e54-4c0fd5e92486.png)
-
-![MarioHero](https://user-images.githubusercontent.com/20437891/32728484-76c03cbc-c878-11e7-9642-a7917264777f.png)
-
 #### Run Locally
 
 - Download or clone the [Github repo](https;//github.com/Gio85/WDI-project1)
@@ -49,3 +43,9 @@ There are few improvements that I would love to add.
 - Improve the code and fixing the bugs.
 - Store the player's score using LocalStorage.
 - Improve the UI which is not perfect at the moment.
+
+![MarioHero](https://user-images.githubusercontent.com/20437891/32728473-68e2c1b4-c878-11e7-83a4-8543b8768335.png)
+
+![MarioHero](https://user-images.githubusercontent.com/20437891/32728478-713d8dbc-c878-11e7-8e54-4c0fd5e92486.png)
+
+![MarioHero](https://user-images.githubusercontent.com/20437891/32728484-76c03cbc-c878-11e7-9642-a7917264777f.png)
