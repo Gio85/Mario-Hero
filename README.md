@@ -1,6 +1,6 @@
 # Mario-Hero
 
-###GA WDI London - Project 1
+### GA WDI London - Project 1
 
 A JavaScript game played in the DOM
 
