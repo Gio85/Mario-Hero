@@ -41,4 +41,8 @@ The big challenge I had with this project was making the character caught the co
 I did solve that using a collision function `dropCoins` which, based on the character height, the coins height and the grid height, was able to determinate when the coins did hit the floor or the character.
 
 ### Future Feacuters
+There are few improvements that I would love to add.
 
+- Improve the code and fixing the bugs.
+- Store the player's score using LocalStorage.
+- Improve the UI which is not perfect at the moment.
