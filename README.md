@@ -13,25 +13,18 @@ The users can play with two different characters
 
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728478-713d8dbc-c878-11e7-8e54-4c0fd5e92486.png)
 
-The object of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives(taking mushrooms), in order to save Princess Peach.
+### Goal of the game
+
+The goal of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives(taking mushrooms), in order to save Princess Peach.
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728484-76c03cbc-c878-11e7-9642-a7917264777f.png)
 
-![MarioHero](https://user-images.githubusercontent.com/20437891/32728492-7a982e26-c878-11e7-8b5e-b75fecae57a3.png)
+#### Run Locally
 
-## To play
+- Download or clone the [Github repo](https;//github.com/Gio85/WDI-project1)
+- Run `yarn install` or `npm install` in the terminal to install all the dependencies
+- Run `gulp` in the terminal to compile the source code and open in the browser
 
-
-
-```sh
-yarn install
-npm install
-```
-
-Run gulp to compile the public folder and serve the game on `localhost:7000`.
-
-```sh
-gulp
-```
+### Technologies
 
 To create this project I used the following technologies:
 
@@ -42,7 +35,8 @@ To create this project I used the following technologies:
 - Gulp
 - Yarn
 
-## Challenges faced
+### Challenges faced
 
 
-![MarioHero](https://user-images.githubusercontent.com/20437891/32729021-5c92ab16-c87a-11e7-86ca-deb8d8aeff46.png)
+###
+
