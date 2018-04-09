@@ -20,7 +20,7 @@ The object of the game is to collect 100 coins, as many stars as possible and tr
 
 ## To play
 
-Download the `.zip` and install the dependencies with yarn or npm.
+
 
 ```sh
 yarn install
@@ -32,5 +32,17 @@ Run gulp to compile the public folder and serve the game on `localhost:7000`.
 ```sh
 gulp
 ```
+
+To create this project I used the following technologies:
+
+- HTML5
+- SCSS
+- Javascript (ECMAScript 6)
+- jQuery
+- Gulp
+- Yarn
+
+## Challenges faced
+
 
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32729021-5c92ab16-c87a-11e7-86ca-deb8d8aeff46.png)
