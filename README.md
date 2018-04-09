@@ -36,7 +36,9 @@ To create this project I used the following technologies:
 - Yarn
 
 ### Challenges faced
+The big challenge I had with this project was making the character caught the coins and determinate whe the coins hit the floor.
 
+I did solve that using a collision function `dropCoins` which, based on the character height, the coins height and the grid height, was able to determinate when the coins did hit the floor or the character.
 
-###
+### Future Feacuters
 
