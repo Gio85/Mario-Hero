@@ -8,9 +8,9 @@ A JavaScript game played in the DOM
 
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728473-68e2c1b4-c878-11e7-83a4-8543b8768335.png)
 
-### Goal of the game
+### Brief
 
-The goal of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives(taking mushrooms), in order to save Princess Peach.
+The goal of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives (taking mushrooms), in order to save Princess Peach.
 
 
 ![MarioHero](https://user-images.githubusercontent.com/20437891/32728478-713d8dbc-c878-11e7-8e54-4c0fd5e92486.png)
@@ -30,17 +30,20 @@ To create this project I used the following technologies:
 
 - HTML5
 - SCSS
-- Javascript (ECMAScript 6)
+- JavaScript (ECMAScript 6)
 - jQuery
 - Gulp
 - Yarn
 
 ### Challenges faced
-The big challenge I had with this project was making the character caught the coins and determinate whe the coins hit the floor.
+The big challenge I had with this project was making the character caught the coins and determinate when the coins hit the floor.
 
 I did solve that using a collision function `dropCoins` which, based on the character height, the coins height and the grid height, was able to determinate when the coins did hit the floor or the character.
 
-### Future Feacuters
+### Wins
+I cant believe how much I have learnt in such a short space of time, JavaScript in particular. It has been a brilliant opportunity to put my learning into practice and build my confidence in my new skillset. 
+
+### Future Features
 There are few improvements that I would love to add.
 
 - Improve the code and fixing the bugs.
