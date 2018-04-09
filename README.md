@@ -8,8 +8,6 @@ After the first three weeks of the course, the instructors told us to make a gam
 
 The goal of the game is to collect 100 coins, as many stars as possible and try to not lose too many lives (taking mushrooms), in order to save Princess Peach.
 
-A JavaScript game played in the DOM
-
 [Play it here!](https://mario-hero-app.herokuapp.com/ "Here!")
 
 #### Run Locally
